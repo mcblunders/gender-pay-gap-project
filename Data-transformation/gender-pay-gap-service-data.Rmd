@@ -1,0 +1,61 @@
+---
+title: "gender-pay-gap-service-data"
+author: "Mia Hatton"
+date: "13/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Gender pay gap service data
+
+Goal: find out the average proportion percentage of each pay quartile that comprises female workers, using 2018-19 data from the Gender Pay Gap Service. Data source: <https://gender-pay-gap.service.gov.uk/>
+
+
+```{r load_libraries_data, message = FALSE}
+library(tidyverse)
+library(knitr)
+library(plotly)
+library(ggthemes)
+pay_gap_data_raw <- read_csv('UK Gender Pay Gap Data - 2018 to 2019.csv')
+colnames(pay_gap_data_raw)
+```
+## Prepare data
+
+Remove companies with fewer than 250 employees and select relevant columns
+
+```{r remove_cols, message = FALSE}
+pay_gap_data_raw %>% 
+  filter(!str_detect(EmployerSize, "ess than")) %>% 
+  select(q1_LowerQuartile = FemaleLowerQuartile,
+         q2_LowerMiddleQuartile = FemaleLowerMiddleQuartile,
+         q3_UpperMiddleQuartile = FemaleUpperMiddleQuartile,
+         q4_TopQuartile = FemaleTopQuartile) -> pay_gap_gt250
+head(pay_gap_gt250)
+```
+
+Pivot and group table to prepare for visualisation
+
+```{r pivot}
+pay_gap_gt250 %>% 
+  pivot_longer(cols = c(q1_LowerQuartile,q2_LowerMiddleQuartile,q3_UpperMiddleQuartile,q4_TopQuartile), names_to = 'Quartile', values_to = 'Percent_female') %>% 
+  group_by(Quartile) %>% 
+  summarise(Percent_female = median(Percent_female)) -> quartile_info 
+```
+
+Plot data
+
+```{r plot}
+quartile_info %>%   
+  ggplot(aes(x = Quartile, y = Percent_female)) + 
+  geom_col(fill = '#7f9ba9') +
+  theme(panel.background = element_blank()) +
+  xlab('Quartile') +
+  ylab('Percent female') +
+  geom_text(aes(label=Percent_female),nudge_y = 4) -> plot_quartiles
+
+ggplotly(plot_quartiles)
+```
