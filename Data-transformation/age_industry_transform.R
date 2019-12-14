@@ -11,4 +11,4 @@ gpg_industry <- read_csv("FT_age_industry.csv") %>%
          GPG_mean = as.numeric(GPG_mean)) %>% 
   select(-Code) %>% 
   filter(!is.na(GPG_median))
-gpg_industry %>% write_csv('gpg_industry.csv')
+gpg_industry %>% write_csv('C:\\Users\\MiaHatton\\Documents\\GitHub\\gender-pay-gap-project\\Data-transformation\\AgeIndustryExplorer\\gpg_industry.csv')
