@@ -3,7 +3,7 @@ Gender pay gap project for Y1 Data Communication module
 
 ## Contents
 
-The project comprised an infographic, an interactive storyboard and two written reports. The infographic and reports can be found in /submissions, and the storyboard can be found [here](https://www.arcgis.com/apps/Cascade/index.html?appid=a159f5952f8c4292ba396468d94f14f7). Data transformation processes, and the data used for them, are stored in /data-transformation.
+The project comprised an infographic, an interactive storyboard and written report. The infographic and report can be found in /submissions, and the storyboard can be found [here](https://www.arcgis.com/apps/Cascade/index.html?appid=a159f5952f8c4292ba396468d94f14f7). Data transformation processes, and the data used for them, are stored in /data-transformation.
 
 ## Data sources
 
